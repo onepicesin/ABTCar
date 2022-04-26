@@ -1,0 +1,29 @@
+{
+   
+    "ABTCar.ABTMusic.dadadum|block": "музыка",
+    "ABTCar.ABTMusic.entertainer|block": "музыка",
+    "ABTCar.ABTMusic.prelude|block": "музыка",
+    "ABTCar.ABTMusic.ode|block": "музыка",
+    "ABTCar.ABTMusic.nyan|block": "музыка",   
+    "ABTCar.ABTMusic.ringtone|block": "музыка",
+    "ABTCar.ABTMusic.funk|block": "музыка",
+    "ABTCar.ABTMusic.blues|block": "музыка",
+    "ABTCar.ABTMusic.birthday|block": "музыка",
+    "ABTCar.ABTMusic.wedding|block": "музыка",
+    "ABTCar.ABTMusic.funereal|block": "музыка",
+    "ABTCar.ABTMusic.punchline|block": "музыка",
+    "ABTCar.ABTMusic.baddy|block": "музыка",
+    "ABTCar.ABTMusic.chase|block": "музыка",
+    "ABTCar.ABTMusic.ba_ding|block": "музыка",
+    "ABTCar.ABTMusic.wawawawaa|block": "музыка",
+    "ABTCar.ABTMusic.jump_up|block": "музыка",
+    "ABTCar.ABTMusic.jump_down|block": "музыка",
+    "ABTCar.ABTMusic.power_up|block": "музыка",
+    "ABTCar.ABTMusic.power_down|block": "музыка",
+    "ABTCar.ABTsensor.MicroSeconds|block":"микросекунда",
+    "ABTCar.ABTsensor.Centimeters|block":"см сантиметр",
+    "ABTCar.ABTsensor.Inches|block":"дюйм",
+    "ABTCar.RGB_Car_Program|block":"люминесцентная лампа",
+    "ABTCar.LED0|block":"светодиодная лампа |%cl|%value"
+
+}

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "jake": "^10.8.2",
+    "typings": "^2.1.1"
+  }
+}

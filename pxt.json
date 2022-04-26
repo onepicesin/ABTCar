@@ -1,0 +1,27 @@
+{
+    "name": "ABTCar",
+    "version": "0.0.1",
+    "description": "ABTCar",
+    "license": "MIT",
+    "dependencies": {
+        "core": "*",
+	"neopixel": "github:lzty634158/pxt-neopixel"
+    },
+    "files": [
+        "README.md",
+        "ABTCar.ts",
+	    "ABTCarIR.cpp",
+        "ABTCar.cpp",
+        "shims.d.ts",
+        "_locales/zh-cn/abtcar-strings.json",
+        "_locales/zh-eu/abtcar-strings.json",
+        "_locales/zh-ru/abtcar-strings.json",
+        "_locales/zh-tw/abtcar-strings.json",
+        "enums.d.ts"
+        
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": true
+}
