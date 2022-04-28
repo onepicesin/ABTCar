@@ -226,6 +226,7 @@ namespace ABTCar {
     //% blockId=ABT_Music block="Music|%index|"
     //% weight=96
     //% blockGap=8
+    //% color="#ee0e3d"
     //% group="音乐"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=6
     export function Music(mc: ABTMusic): void {
@@ -258,7 +259,7 @@ namespace ABTCar {
     //% blockId=ABT_Volume block="音量控制： %volume"
     //% weight=5
     //% blockGap=8
-    //% color="#eb0ed9"
+  //% color="#ee0e3d"
     //% volume.min=0 volume.max=255 volume.defl=125
     //% group="音乐"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=6
