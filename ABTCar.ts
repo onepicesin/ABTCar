@@ -4,7 +4,7 @@
 * 颜色参考链接：http://xh.5156edu.com/page/z1015m9220j18754.html
 */
 //% color=#ee0e3d weight=20 icon="\uf1b9" block="ABTCar"
-//% groups=['ABT_display','ABT_music','ABT_sensor','ABT_Handle','ABT_electricmachinery','ABT_CarControl']
+//% groups=['灯光显示','音乐','传感器','摇杆手柄','电机','小车运动控制'，'红外']
 namespace ABTCar {
     //灯光显示 
     let yahStrip: neopixel.Strip;
@@ -16,7 +16,7 @@ namespace ABTCar {
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_display"
+    //% group="灯光显示"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     export function RGB_Car_Program(): neopixel.Strip {
 
@@ -63,11 +63,11 @@ namespace ABTCar {
     /**
      * 控制引脚灯亮灭
      */
-    //% blockId=ABT_LED0 block="LED1|pin %pin|value %value"
+    //% blockId=ABT_LED2 block="车灯|引脚 %pin|状态： %value"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_display"
+    //% group="灯光显示"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=1
     export function LED1(pin: DigitalPin, value: ABT_LED): void {
         pins.digitalWritePin(pin, value);
@@ -76,12 +76,12 @@ namespace ABTCar {
     /**
      * 控制引脚灯亮度
      */
-    //% blockId=ABT_LED1 block="LED2|pin %pin|value %value"
+    //% blockId=ABT_LED3 block="车灯|引脚 %pin|亮度： %value"
     //% weight=4
     //% blockGap=8
     //% color="#ee0e3d"
     //% value.min=0 value.max=255
-    //% group="ABT_display"
+    //% group="灯光显示"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=2
     export function LED2(pin: AnalogPin, value: number): void {
         pins.analogWritePin(pin, value * 1024 / 256);
@@ -90,11 +90,11 @@ namespace ABTCar {
     /**
      * 呼吸灯
      */
-    //% blockId=ABT_BreathLED block="BreathLED|pin %pin"
+    //% blockId=ABT_BreathLED1 block="呼吸灯 车灯|引脚： %pin"
     //% weight=3
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_display"
+    //% group="灯光显示"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=3
     export function BreathLED(pin: AnalogPin): void {
         for (let i: number = 0; i < 1023; i++) {
@@ -113,12 +113,12 @@ namespace ABTCar {
     /**
      * 控制灯的颜色亮度
      */
-    //% blockId=ABT_RGB block="RGB|pin1 %pin1|value1 %value1|pin2 %pin2|value2 %value2|pin3 %pin3|value3 %value3"
+    //% blockId=ABT_RGB block="RGB灯|R引脚 %pin1|R亮度 %value1|G引脚 %pin2|G亮度 %value2|B引脚 %pin3|B亮度 %value3"
     //% weight=2
     //% blockGap=8
     //% color="#ee0e3d"
     //% value1.min=0 value1.max=255 value2.min=0 value2.max=255 value3.min=0 value3.max=255
-    //% group="ABT_display"
+    //% group="灯光显示"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     export function RGB(pin1: AnalogPin, value1: number, pin2: AnalogPin, value2: number, pin3: AnalogPin, value3: number): void {
         pins.analogWritePin(pin1, value1 * 1024 / 256);
@@ -129,11 +129,11 @@ namespace ABTCar {
     /**
      * 控制灯的颜色
      */
-    //% blockId=ABT_RGB1 block="RGB|pin1 %pin1|pin2 %pin2|pin3 %pin3|value %value"
+    //% blockId=ABT_RGB1 block="RGB灯|R引脚 %pin1|G引脚 %pin2|B引脚 %pin3|颜色 %value"
     //% weight=1
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_display"
+    //% group="灯光显示"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
     export function RGB1(pin1: DigitalPin, pin2: DigitalPin, pin3: DigitalPin, value: ABT_color): void {
         switch (value) {
@@ -181,26 +181,6 @@ namespace ABTCar {
     }
 
     //音乐
-    export enum ABTBuzzer {
-        //% blockId="noring" block="不响"
-        noring = 0,
-        //% blockId="ring" block="响"
-        ring
-    }
-    /**
-     * 控制蜂鸣器的开关
-     */
-    //% blockId=ABT_Buzzer block="Buzzer|pin %pin|value %value"
-    //% weight=96
-    //% blockGap=8
-    //% group="ABT_music"
-    //% value.min=0 value.max=1
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=8
-    export function Buzzer(pin: DigitalPin, value: ABTBuzzer): void {
-        pins.setPull(pin, PinPullMode.PullNone);
-        pins.digitalWritePin(pin, value);
-    }
-
     export enum ABTMusic {
         //% blockId="dadadum" block="dadadum"
         dadadum = 0,
@@ -214,10 +194,6 @@ namespace ABTCar {
         nyan,
         //% blockId="ringtone" block="ringtone"
         ringtone,
-        //% blockId="funk" block="funk"
-        funk,
-        //% blockId="blues" block="blues"
-        blues,
         //% blockId="birthday" block="birthday"
         birthday,
         //% blockId="wedding" block="wedding"
@@ -250,7 +226,7 @@ namespace ABTCar {
     //% blockId=ABT_Music block="Music|%index|"
     //% weight=96
     //% blockGap=8
-    //% group="ABT_music"
+    //% group="音乐"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=6
     export function Music(mc: ABTMusic): void {
         switch (mc) {
@@ -261,8 +237,6 @@ namespace ABTCar {
             case ABTMusic.ode: music.beginMelody(music.builtInMelody(Melodies.Ode), MelodyOptions.Once); break;
             case ABTMusic.nyan: music.beginMelody(music.builtInMelody(Melodies.Nyan), MelodyOptions.Once); break;
             case ABTMusic.ringtone: music.beginMelody(music.builtInMelody(Melodies.Ringtone), MelodyOptions.Once); break;
-            case ABTMusic.funk: music.beginMelody(music.builtInMelody(Melodies.Funk), MelodyOptions.Once); break;
-            case ABTMusic.blues: music.beginMelody(music.builtInMelody(Melodies.Blues), MelodyOptions.Once); break;
             case ABTMusic.wedding: music.beginMelody(music.builtInMelody(Melodies.Wedding), MelodyOptions.Once); break;
             case ABTMusic.funereal: music.beginMelody(music.builtInMelody(Melodies.Funeral), MelodyOptions.Once); break;
             case ABTMusic.punchline: music.beginMelody(music.builtInMelody(Melodies.Punchline), MelodyOptions.Once); break;
@@ -275,6 +249,21 @@ namespace ABTCar {
             case ABTMusic.power_up: music.beginMelody(music.builtInMelody(Melodies.PowerUp), MelodyOptions.Once); break;
             case ABTMusic.power_down: music.beginMelody(music.builtInMelody(Melodies.PowerDown), MelodyOptions.Once); break;
         }
+        
+    }
+    /**
+     * 控制音量
+     * 
+     * */
+    //% blockId=ABT_Volume block="音量控制： %volume"
+    //% weight=5
+    //% blockGap=8
+    //% color="#eb0ed9"
+    //% volume.min=0 volume.max=255 volume.defl=125
+    //% group="音乐"
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=6
+    export function ABT_Volume(volume: number): void {
+        music.setVolume(volume);
     }
 
     //传感器
@@ -287,11 +276,11 @@ namespace ABTCar {
         //% blockId="NoVoice" block="无声音"
         NoVoice = 1
     }
-    //% blockId=ABT_Voice_Sensor block="Voice_Sensor|pin %pin|value %value"
+    //% blockId=ABT_Voice_Sensor1 block="声音传感器|引脚 %pin|状态 %value"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_sensor"
+    //% group="传感器"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=7
     export function Voice_Sensor(pin: DigitalPin, value: ABTVoice): boolean {
         pins.setPull(pin, PinPullMode.PullUp);
@@ -308,11 +297,11 @@ namespace ABTCar {
      * 声音传感器 返回声音大小
      */
     
-    //% blockId=ABT_Voice_Sound block="Sound|pin %pin"
+    //% blockId=ABT_Voice_Sound1 block="声音传感器|引脚 %pin"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_sensor"
+    //% group="传感器"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=7
     export function Sound(pin: AnalogPin): number {
         let value: number;
@@ -323,11 +312,11 @@ namespace ABTCar {
     /**
      * 光敏传感器 返回监测到的亮度
      */
-    //% blockId=ABT_Sensor_Light block="Light|pin %pin"
+    //% blockId=传感器_Light1 block="光敏传感器|引脚 %pin"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_sensor"
+    //% group="传感器"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=7
     export function Light(pin: AnalogPin): number {
         let value: number;
@@ -336,22 +325,23 @@ namespace ABTCar {
     }
 
  
+    //传感器
     export enum ABTsensor {
-        //% blockId="MicroSeconds" block="μs"
-        MicroSeconds = 0,
-        //% blockId="Centimeters" block="cm"
-        Centimeters,
-        //% blockId="inches" block="inches"
+        //% blockId="Centimeters" block="厘米"
+        Centimeters = 0,
+        //% blockId="MicroSeconds" block="微秒"
+        MicroSeconds,
+        //% blockId="inches" block="英寸"
         Inches
     }
-     /**
-     * 超声波传感器
-     */
-    //% blockId=ABT_ping block="ABT_ping sendout %sendout|receive %receive|distanceunit %distanceunit"
+    /**
+    * 超声波传感器
+    */
+    //% blockId=ABT_ping2 block="超声波接收引脚： %sendout|发送引脚： %receive|返回单位： %distanceunit"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_sensor"
+    //% group="传感器"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=8
     export function ping(sendout: DigitalPin, receive: DigitalPin, distanceunit: ABTsensor): number {
         // send pulse
@@ -388,11 +378,11 @@ namespace ABTCar {
     /**
      * 红外传感器检查是否接收返回信号
      */
-    //% blockId=ABT_IR_Sensor block="IR_Sensor|pin %pin|or %value|障碍物"
+    //% blockId=ABT_IR_Sensor block="红外接收器|引脚 %pin|状态 %value|障碍物"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_sensor"
+    //% group="传感器"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     export function IR_Sensor(pin: DigitalPin, value: ABTIR): boolean {
         pins.setPull(pin, PinPullMode.PullUp);
@@ -407,11 +397,11 @@ namespace ABTCar {
     /**
      * 红外传感器 发送红外信号
      */
-    //% blockId=ABT_IR_Send block="IR_Send"
+    //% blockId=ABT_IR_Send block="发送红外信号"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_sensor"
+    //% group="传感器"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     export function IR_Send(): void {
         IR_send_38k();
@@ -420,11 +410,11 @@ namespace ABTCar {
     /**
      * 震动传感器 摇动时触发
      */
-    //% blockId=ABT_Sensor_Vibration block="Vibration|pin %pin|get "
+    //% blockId=传感器_Vibration block="震动传感器|引脚 %pin|有震动 "
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_sensor"
+    //% group="传感器"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     export function Vibration(pin: DigitalPin, handle: () => void): void {
         let Pin = 0;
@@ -438,11 +428,11 @@ namespace ABTCar {
      * 霍尔传感器 磁铁靠近时触发
      */
     
-    //% blockId=ABT_Sensor_Hall block="Hall|pin %pin|get "
-     //% weight=5
+    //% blockId=传感器_Hall block="霍尔传感器|引脚 %pin|有磁力 "
+    //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_sensor"
+    //% group="传感器"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
     export function Hall(pin: DigitalPin, handle: () => void): void {
         pins.setPull(pin, PinPullMode.PullUp);
@@ -479,11 +469,11 @@ namespace ABTCar {
     /**
      * 判断是否按键按下
      */
-    //% blockId=ABT_Button block="Button|key %key|value %value"
+    //% blockId=ABT_Button block="按键|： %key|状态： %value"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_Handle"
+    //% group="摇杆手柄"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
     export function Button(key: ABT_Key, value: ABT_KeyState): boolean {
         let pin = <DigitalPin><number>key;
@@ -494,7 +484,7 @@ namespace ABTCar {
         else {
             return false;
         }
-
+  
     }
     export enum ABT_Key2 {
         //% blockId="key_A1" block="A"
@@ -519,25 +509,25 @@ namespace ABTCar {
         released = DAL.MICROBIT_BUTTON_EVT_UP,
     }
     let posi_init = 0;
-
+  
     function InitialPosition(): void {
         posi_init = 1;
         return;
     }
-
+  
     //% shim=ABTCar::init
     function init(): void {
         return;
     }
-     /**
-     * 当按键按下松开点击发生什么
-     */
+    /**
+    * 当按键按下松开点击发生什么
+    */
     //% blockId=ABT_OnKey1
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_Handle"
-    //% block="on key %key| is %keyEvent"
+    //% group="摇杆手柄"
+    //% block="按键： %key| 状态： %keyEvent"
     export function OnKey1(key: ABT_Key2, keyEvent: ABT_KeyState2, handler: Action) {
         if (!posi_init) {
             InitialPosition();
@@ -545,54 +535,57 @@ namespace ABTCar {
         init();
         control.onEvent(<number>key, <number>keyEvent, handler); // register handler
     }
-     /**
-     * 判断是否按键按下
-     */
+    /**
+    * 判断是否按键按下
+    */
     //% blockId=ABT_KeyPressed1
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_Handle"
-    //% block="key %key| is pressed"
+    //% group="摇杆手柄"
+    //% block="按键 %key| 按下"
     export function KeyPressed1(key: ABT_Key2): boolean {
         const pin = <DigitalPin><number>key;
         pins.setPull(pin, PinPullMode.PullUp);
         return pins.digitalReadPin(<DigitalPin><number>key) == 0;
     }
-
+  
     export enum ABTHandle {
-        //% blockId="UpLeft" block="左转"
+        //% blockId="UpLeft" block="左上"
         UpLeft = 0,
-        //% blockId="Up" block="↑前进"
+        //% blockId="Up" block="↑ 上"
         Up,
-        //% blockId="UpRight" block="右转"
+        //% blockId="UpRight" block="右上"
         UpRight,
-        //% blockId="Left" block="←原地左转"
+        //% blockId="Left" block="← 左"
         Left,
-        //% blockId="Middle" block="无"
+        //% blockId="Middle" block="中间"
         Middle,
-        //% blockId="Right" block="→原地右转"
+        //% blockId="Right" block="→ 右"
         Right,
-        //% blockId="LowerLeft" block="后左转"
+        //% blockId="LowerLeft" block="左下"
         LowerLeft,
-        //% blockId="Down" block="↓后退"
+        //% blockId="Down" block="↓ 下"
         Down,
-        //% blockId="LowerRight" block="后右转"
+        //% blockId="LowerRight" block="右下"
         LowerRight
     }
-
+  
     const x0 = 517;
     const y0 = 520;
     const z0 = 240;
-     /**
-     * 控制手柄的上下左右斜向操作
-     */
-    //% blockId=ABT_ABTHandleControl 
-    //% block="Handle_Control %direction|"
+    /**
+    * 控制手柄的上下左右斜向操作
+    */
+    //% blockId=ABT_ABTHandleControl1
+    //% block="摇杆摆动方向： %direction|"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_Handle"
+    //% group="摇杆手柄"
+    //% direction.fieldEditor="gridpicker"
+    //% direction.fieldOptions.width=220
+    //% direction.fieldOptions.columns=3
     export function ABTHandleControl(direction: ABTHandle): boolean {
         let x = pins.analogReadPin(AnalogPin.P1) - x0;
         let y = pins.analogReadPin(AnalogPin.P2) - y0;
@@ -648,16 +641,16 @@ namespace ABTCar {
         }
     }
     /**
-    * 是否打开震动
+    * 是否打开振动器
     */
     //% blockId=ABT_shock
-    //% block="vibration %shock|"
+    //% block="振动器状态： %shock|"
     //% shock.shadow="toggleOnOff"
     //% shock.defl="true"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_Handle"
+    //% group="摇杆手柄"
     export function shock(shock: boolean) {
         if (shock) {
             pins.digitalWritePin(DigitalPin.P8, 1);
@@ -665,59 +658,33 @@ namespace ABTCar {
             pins.digitalWritePin(DigitalPin.P8, 0);
         }
     }
-     /**
-     * 判断是否按键按下
-     */
-    //% blockId=ABT_Input_Button block="Button|pin %pin|value %value"
-    //% weight=5
-    //% blockGap=8
-    //% color="#ee0e3d"
-    //% group="ABT_Handle"
-    export function Button2(pin: DigitalPin, value: ABT_KeyState): boolean {
-        pins.setPull(pin, PinPullMode.PullUp);
-        return pins.digitalReadPin(pin) == value;
-    }
 
 
     //电机
-     /**
-     * 电扇灭火器
-     */
+    /**
+    * 电扇灭火器
+    */
     
-    //% blockId=ABT_Fan block="Fan|pin %pin|speed %value"
+    //% blockId=ABT_Fan1 block="风扇|引脚 %pin|转速 %value"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
     //% value.min=0 value.max=255
-    //% group=ABT_electric machinery
+    //% group=电机
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=9
     export function Fan(pin: AnalogPin, value: number): void {
         pins.analogWritePin(pin, Math.map(value, 0, 255, 0, 1024));
-    }
-    /**
-     * 舵机
-     */
-    //% blockId=ABT_Servo block="Servo|pin %pin|value %value"
-    //% weight=5
-    //% blockGap=8
-    //% color="#ee0e3d"
-    //% value.min=0 value.max=180
-    //% value.defl=90
-    //% group=ABT_electric machinery
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=9
-    export function Servo(pin: AnalogPin, value: number): void {
-        pins.servoWritePin(pin, value);
     }
 
     /**
      * 直流电机 控制电机速度0~1024
      */
-    //% blockId=ABT_MotorRun block="Motor|%pin|speed %speed"
-     //% weight=5
+    //% blockId=ABT_MotorRun block="发动机|引脚 %pin|速度 %speed"
+    //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
     //% speed.min=0 speed.max=1023
-    //% group=ABT_electric machinery
+    //% group=电机
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
     export function MotorRun(pin: AnalogPin, speed: number): void {
         pins.analogWritePin(pin, speed);
@@ -725,14 +692,36 @@ namespace ABTCar {
     /**
      * 控制电机停止
      */
-    //% blockId=ABT_MotorStop block="MotorStop |pin %pin"
+    //% blockId=ABT_MotorStop block="STOP电机 |引脚 %pin"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group=ABT_electric machinery
+    //% group=电机
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=5
     export function MotorStop(pin: AnalogPin): void {
         pins.analogWritePin(pin, 0);
+    }
+    export enum AnalogPin3 {
+        P1 = 101,  // MICROBIT_ID_IO_P1
+        P2 = 102,  // MICROBIT_ID_IO_P2
+        P15 = 115,  // MICROBIT_ID_IO_P15
+        P16 = 116,  // MICROBIT_ID_IO_P16
+    }
+    /**
+      * 舵机
+      */
+    //% blockId=ABT_Servo9 block="舵机引脚 %pin|角度 %value|延迟(毫秒) %value2"
+    //% weight=5
+    //% blockGap=8
+    //% color="#ee0e3d"
+    //% value.min=0 value.max=180
+    //% value.defl=90
+    //% value2.min=0 value2.max=5000
+    //% group=电机
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=9
+    export function Servo(pin2: AnalogPin3, value: number, value2: number,value3:number): void {
+        pins.servoWritePin(<AnalogPin><number>pin2, value);
+        basic.pause(value2);
     }
 
 
@@ -749,14 +738,91 @@ namespace ABTCar {
         //% block="右边状态"
         rightstate,
     }
-    /**
-     * 寻迹小车
-     */
-    //% blockId=ABT_LineSenor block="ABT_Lineping direct %direct|or LineC %LineC"
+    function LineSensor1(direct: ABTKeyState, LineC: ABTLinesensor): boolean {
+        let temp: boolean = false;
+        pins.setPull(DigitalPin.P1, PinPullMode.PullNone);
+        pins.setPull(DigitalPin.P2, PinPullMode.PullNone);
+        if (direct == ABTKeyState.leftstate) {
+            if (LineC == ABTLinesensor.black) {
+                if (pins.analogReadPin(AnalogPin.P1) < 500) {
+                    temp = true;
+                }
+                else {
+                    temp = false;
+                }
+            }
+            else if (LineC == ABTLinesensor.white) {
+                if (pins.analogReadPin(AnalogPin.P1) < 500) {
+                    temp = false;
+                }
+                else {
+                    temp = true;
+                }
+            }
+        }
+        if (direct == ABTKeyState.rightstate) {
+            if (LineC == ABTLinesensor.black) {
+                if (pins.analogReadPin(AnalogPin.P2) < 500) {
+                    temp = true;
+                }
+                else {
+                    temp = false;
+                }
+            }
+            else if (LineC == ABTLinesensor.white) {
+                if (pins.analogReadPin(AnalogPin.P2) < 500) {
+                    temp = false;
+                }
+                else {
+                    temp = true;
+                }
+            }
+  
+        }
+        return temp;
+    }
+    //% blockId=shunxian
+    //% block="小车以|%speed1速度沿黑线巡线"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_CarControl"
+    //%speed1.min=0 speed1.max=255
+    //% group="小车运动控制"
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=9
+    export function xunxian(speed1: number): void {
+        if (LineSensor1(ABTKeyState.leftstate, ABTLinesensor.white) && LineSensor1(ABTKeyState.rightstate, ABTLinesensor.black)) {
+            pins.analogWritePin(L_backward, 0);
+            pins.analogWritePin(L_forward, Math.map(speed1, 0, 255, 0, 1023));
+            pins.analogWritePin(R_backward, 0);
+            pins.analogWritePin(R_forward, 0);
+        }
+        if (LineSensor1(ABTKeyState.leftstate, ABTLinesensor.black) && LineSensor1(ABTKeyState.rightstate, ABTLinesensor.white)) {
+            pins.analogWritePin(L_backward, 0);
+            pins.analogWritePin(L_forward, 0);
+            pins.analogWritePin(R_backward, 0);
+            pins.analogWritePin(R_forward, Math.map(speed1, 0, 255, 0, 1023));
+        }
+        if (LineSensor1(ABTKeyState.leftstate, ABTLinesensor.black) && LineSensor1(ABTKeyState.rightstate, ABTLinesensor.black)) {
+            pins.analogWritePin(L_backward, 0);
+            pins.analogWritePin(L_forward, Math.map(speed1, 0, 255, 0, 1023));
+            pins.analogWritePin(R_backward, 0);
+            pins.analogWritePin(R_forward, Math.map(speed1, 0, 255, 0, 1023));
+        }
+        if (LineSensor1(ABTKeyState.leftstate, ABTLinesensor.white) && LineSensor1(ABTKeyState.rightstate, ABTLinesensor.white)) {
+            pins.analogWritePin(L_backward, 0);
+            pins.analogWritePin(L_forward, 0);
+            pins.analogWritePin(R_backward, 0);
+            pins.analogWritePin(R_forward, 0);
+        }
+    }
+    /**
+     * 寻迹小车
+     */
+    //% blockId=ABT_LineSenor block="小车寻迹传感器 状态： %direct|是否检测到： %LineC"
+    //% weight=5
+    //% blockGap=8
+    //% color="#ee0e3d"
+    //% group="小车运动控制"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=9
     export function LineSensor(direct: ABTKeyState, LineC: ABTLinesensor): boolean {
         let temp: boolean = false;
@@ -797,19 +863,19 @@ namespace ABTCar {
                     temp = true;
                 }
             }
-
+  
         }
         return temp;
     }
-
+  
     /**
      * 返回超声波距离
      */
-    //% blockId=ABT_ping_Car block="ultrasonic return distance(cm)"
+    //% blockId=ABT_ping_Car block="超声波返回与障碍距离(cm)"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_CarControl"
+    //% group="小车运动控制"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=10
     export function ping_Car(): number {
         let list: Array<number> = [0, 0, 0, 0, 0];
@@ -827,22 +893,6 @@ namespace ABTCar {
         let length = (list[1] + list[2] + list[3]) / 3;
         return Math.floor(length);
     }
-
-    /**
-     * 返回声音传感器返回的声音大小
-     */
-    //% blockId=ABT_Voice_Sensor2 block="Voice Sensor return"
-    //% weight=5
-    //% blockGap=8
-    //% color="#ee0e3d"
-    //% group="ABT_CarControl"
-    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=7
-    export function Voice_Sensor2(): number {
-        let temp = pins.analogReadPin(AnalogPin.P2);
-        return temp;
-    }
-
-
     export enum Controldirection {
         //%block="前进"
         forward,
@@ -863,8 +913,8 @@ namespace ABTCar {
         //%block="停止"
         stop
     }
-
-
+  
+  
     let L_forward = AnalogPin.P13;
     let L_backward = AnalogPin.P14;
     let R_backward = AnalogPin.P15;
@@ -873,10 +923,10 @@ namespace ABTCar {
     * 设置ABTCar的电机速度
     */
     //% blockId=move
-    //% block="ABTCar: LEFT: $left \\%, FIGHT: $right \\%"
+    //% block="小车: 左轮速度: $left \\%, 右轮速度: $right \\%"
     //% left.shadow="speedPicker"
     //% right.shadow="speedPicker"
-    //% group="ABT_CarControl"
+    //% group="小车运动控制"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
@@ -896,35 +946,37 @@ namespace ABTCar {
             pins.analogWritePin(R_forward, 0);
         }
     }
-
+  
     /**
     * ABTCar 停止
     */
     //% blockId=stop
-    //% block="BitCar: stop"
+    //% block="小车停止"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_CarControl"
+    //% group="小车运动控制"
     export function stop() {
         pins.analogWritePin(L_backward, 0);
         pins.analogWritePin(L_forward, 0);
         pins.analogWritePin(R_backward, 0);
         pins.analogWritePin(R_forward, 0);
     }
-
+   
+    
+  
     /**
     * 当ABTCar静止不动时，让它从地面站起来，然后停下来，如果没有这样做，尝试调整电机速度和通电时间
     */
     //% blockId=standup_still
-    //% block="ABTCar: stand up with speed $speed \\% charge $charge|(ms)"
+    //% block="小车初始后退速度： $speed \\% 小车突然全速前进时间： $charge|(ms)"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
     //% speed.defl=100
     //% speed.min=0 speed.max=100
     //% charge.defl=250
-    //% group="ABT_CarControl"
+    //% group="小车运动控制"
     export function standup_still(speed: number, charge: number) {
         move(-speed, -speed);
         basic.pause(200);
@@ -932,16 +984,16 @@ namespace ABTCar {
         basic.pause(charge);
         stop();
     }
-
+  
     
     /**
     * ABTCar 方向运动
     */
-    //% blockId=ABT_ABTCar block="ABTCar direction %direction|"
+    //% blockId=ABT_ABTCar block="小车全速状态： %direction|"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_CarControl"
+    //% group="小车运动控制"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=7
     export function ABTCar(direction: Controldirection) {
         switch (direction) {
@@ -951,7 +1003,7 @@ namespace ABTCar {
                 pins.analogWritePin(R_backward, 0);
                 pins.analogWritePin(R_forward, 1023);
             }; break;
-
+  
             case Controldirection.r_forward: {
                 pins.analogWritePin(L_backward, 0);
                 pins.analogWritePin(L_forward, 1023);
@@ -1002,14 +1054,14 @@ namespace ABTCar {
             }; break;
         }
     }
-     /**
-    * ABTCar 方向运动可调速
-    */
-    //% blockId=ABT_ABTCar1 block="ABTCar1 direction %direction|value %value|"
+    /**
+   * ABTCar 方向运动可调速
+   */
+    //% blockId=ABT_ABTCar1 block="小车状态： %direction|速度： %value|"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_CarControl"
+    //% group="小车运动控制"
     //%value.min=0 value.max=255
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=7
     export function ABTCar1(direction: Controldirection, value: number) {
@@ -1020,7 +1072,7 @@ namespace ABTCar {
                 pins.analogWritePin(R_backward, 0);
                 pins.analogWritePin(R_forward, Math.map(value, 0, 255, 0, 1023));
             }; break;
-
+  
             case Controldirection.r_forward: {
                 pins.analogWritePin(L_backward, 0);
                 pins.analogWritePin(L_forward, Math.map(value, 0, 255, 0, 1023));
@@ -1071,11 +1123,11 @@ namespace ABTCar {
             }; break;
         }
     }
-
+  
     export enum Electricmachinery {
-        //%block="左电机"
+        //%block="左轮"
         left = 0,
-        //%block="右电机"
+        //%block="右轮"
         right,
         //%block="全部"
         all
@@ -1083,59 +1135,43 @@ namespace ABTCar {
     export enum Electricdirection {
         //%block="正转"
         forword = 0,
-        //%block="返转"
+        //%block="反转"
         back,
         //%block="停止"
         stop
     }
-     /**
-    * ABTCar 单个电机方向运动
-    */
-    //% blockId=ABT_ABTCar2 block="ABTCar onec %onec|direction %direction|"
+    /**
+   * ABTCar 单个电机方向运动
+   */
+    //% blockId=ABT_ABTCar2 block="小车轮胎： %onec|状态： %direction|"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_CarControl"
+    //% group="小车运动控制"
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=7
     export function ABTCar2(onec: Electricmachinery, direction: Electricdirection) {
         if (onec == Electricmachinery.left) {
             switch (direction) {
                 case Electricdirection.forword: {
                     pins.analogWritePin(AnalogPin.P13, 1023);
-                    pins.analogWritePin(AnalogPin.P14, 0);
-                    pins.analogWritePin(AnalogPin.P15, 0);
-                    pins.analogWritePin(AnalogPin.P16, 0);
                 }; break;
                 case Electricdirection.back: {
-                    pins.analogWritePin(AnalogPin.P13, 0);
                     pins.analogWritePin(AnalogPin.P14, 1023);
-                    pins.analogWritePin(AnalogPin.P15, 0);
-                    pins.analogWritePin(AnalogPin.P16, 0);
                 }; break;
                 case Electricdirection.stop: {
                     pins.analogWritePin(AnalogPin.P13, 0);
                     pins.analogWritePin(AnalogPin.P14, 0);
-                    pins.analogWritePin(AnalogPin.P15, 0);
-                    pins.analogWritePin(AnalogPin.P16, 0);
                 }; break;
             }
         } else if (onec == Electricmachinery.right) {
             switch (direction) {
                 case Electricdirection.forword: {
-                    pins.analogWritePin(AnalogPin.P13, 0);
-                    pins.analogWritePin(AnalogPin.P14, 0);
-                    pins.analogWritePin(AnalogPin.P15, 0);
                     pins.analogWritePin(AnalogPin.P16, 1023);
                 }; break;
                 case Electricdirection.back: {
-                    pins.analogWritePin(AnalogPin.P13, 0);
-                    pins.analogWritePin(AnalogPin.P14, 0);
                     pins.analogWritePin(AnalogPin.P15, 1023);
-                    pins.analogWritePin(AnalogPin.P16, 0);
                 }; break;
                 case Electricdirection.stop: {
-                    pins.analogWritePin(AnalogPin.P13, 0);
-                    pins.analogWritePin(AnalogPin.P14, 0);
                     pins.analogWritePin(AnalogPin.P15, 0);
                     pins.analogWritePin(AnalogPin.P16, 0);
                 }; break;
@@ -1143,17 +1179,13 @@ namespace ABTCar {
         } else if (onec == Electricmachinery.all) {
             switch (direction) {
                 case Electricdirection.forword: {
-                    pins.analogWritePin(AnalogPin.P15, 0);
                     pins.analogWritePin(AnalogPin.P16, 1023);
                     pins.analogWritePin(AnalogPin.P13, 1023);
-                    pins.analogWritePin(AnalogPin.P14, 0);
-                }; break;
+                };
                 case Electricdirection.back: {
-                    pins.analogWritePin(AnalogPin.P13, 0);
                     pins.analogWritePin(AnalogPin.P14, 1023);
                     pins.analogWritePin(AnalogPin.P15, 1023);
-                    pins.analogWritePin(AnalogPin.P16, 0);
-                }; break;
+                };
                 case Electricdirection.stop: {
                     pins.analogWritePin(AnalogPin.P13, 0);
                     pins.analogWritePin(AnalogPin.P14, 0);
@@ -1166,11 +1198,11 @@ namespace ABTCar {
     /**
     * ABTCar 单个电机方向运动 可调速
     */
-    //% blockId=ABT_ABTCar3 block="ABTCar3 onec1 %onec1|direction1 %direction1|value %value|"
+    //% blockId=ABT_ABTCar3 block="小车轮胎： %onec1|状态： %direction1|速度：%value|"
     //% weight=5
     //% blockGap=8
     //% color="#ee0e3d"
-    //% group="ABT_CarControl"
+    //% group="小车运动控制"
     //%value.min=0 value.max=255
     //% name.fieldEditor="gridpicker" name.fieldOptions.columns=8
     export function ABTCar3(onec1: Electricmachinery, direction1: Electricdirection, value: number) {
@@ -1178,30 +1210,18 @@ namespace ABTCar {
             switch (direction1) {
                 case Electricdirection.forword: {
                     pins.analogWritePin(AnalogPin.P13, Math.map(value, 0, 255, 0, 1023));
-                    pins.analogWritePin(AnalogPin.P14, 0);
-                    pins.analogWritePin(AnalogPin.P15, 0);
-                    pins.analogWritePin(AnalogPin.P16, 0);
                 }; break;
                 case Electricdirection.back: {
-                    pins.analogWritePin(AnalogPin.P13, 0);
                     pins.analogWritePin(AnalogPin.P14, Math.map(value, 0, 255, 0, 1023));
-                    pins.analogWritePin(AnalogPin.P15, 0);
-                    pins.analogWritePin(AnalogPin.P16, 0);
                 }; break;
             }
         } else if (onec1 == Electricmachinery.right) {
             switch (direction1) {
                 case Electricdirection.forword: {
-                    pins.analogWritePin(AnalogPin.P13, 0);
-                    pins.analogWritePin(AnalogPin.P14, 0);
-                    pins.analogWritePin(AnalogPin.P15, 0);
                     pins.analogWritePin(AnalogPin.P16, Math.map(value, 0, 255, 0, 1023));
                 }; break;
                 case Electricdirection.back: {
-                    pins.analogWritePin(AnalogPin.P13, 0);
-                    pins.analogWritePin(AnalogPin.P14, 0);
                     pins.analogWritePin(AnalogPin.P15, Math.map(value, 0, 255, 0, 1023));
-                    pins.analogWritePin(AnalogPin.P16, 0);
                 }; break;
             }
         } else if (onec1 == Electricmachinery.all) {
@@ -1227,12 +1247,6 @@ namespace ABTCar {
             }
         }
     }
-
-
-
-}
-//% color=#0cd7e9 weight=30 icon="\uf1eb" block="ABTIR"
-namespace ABT_IR {
     export enum irButton {
         //% blockId="SWITCH" block="开关"
         SWITCH = 69,
@@ -1281,7 +1295,7 @@ namespace ABT_IR {
     let data1: number;
     let irstate: number;
     let irData: number = -1;
-
+  
     //% shim=ABTCarIR::irCode
     function irCode(): number {
         return 0;
@@ -1289,11 +1303,12 @@ namespace ABT_IR {
     /**
     * 键接收到红外信号后的操作
     */
-    //% blockId="ABT_IR_received"
+    //% blockId="irkey"
     //% weight=5
     //% blockGap=8
-    //% color="#0cd7e9"
-    //% block="if|received|data|is %irbutton"
+    //% color=#ee0e3d
+    //% group="红外"
+    //% block="如果接收到的按键是： %irbutton"
     export function IR_received(irbutton: irButton): boolean {
         pins.setPull(DigitalPin.P5, PinPullMode.PullUp)
         if (valuotokeyConversion() == <number>irbutton) {
@@ -1301,45 +1316,21 @@ namespace ABT_IR {
         }
         return false;
     }
-
+  
     /**
     * 返回发射红外键的值 可判断进行操作
     */
-    //% blockId="IR_read3"
+    //% blockId="irnumber"
     //% weight=5
     //% blockGap=8
-    //% color="#0cd7e9"
-    //% block="read IR key value"
+    //% color=#ee0e3d
+    //% group="红外"
+    //% block="返回红外遥控按下的按键值"
     export function IR_read(): number {
         pins.setPull(DigitalPin.P5, PinPullMode.PullUp)
         return valuotokeyConversion();
     }
-
-    // //% blockId="IR_callbackUser"
-    // //% weight=50
-    // //% block="on IR received"
-    // //% draggableParameters
-    // export function IR_callbackUser(cb: (message: number) => void) {
-    //     pins.setPull(DigitalPin.P5, PinPullMode.PullUp)
-    //     state = 1;
-    //     control.onEvent(11, 22, function () {//当注册事件发生时运行一些代码。
-    //         cb(data1)
-
-    //     })
-    // }
-
-    // basic.forever(() => {
-    //     if (state == 1) {
-    //         irstate = irCode();
-    //         if (irstate != 0) {
-    //             data1 = irstate & 0xff;
-    //             control.raiseEvent(11, 22)//宣布某个事件源发生了某事。
-    //         }
-    //     }
-
-    //     basic.pause(50);
-    // })
-
+  
     function valuotokeyConversion(): number {
         //serial.writeValue("x", irCode() )
         let data = irCode();
@@ -1348,5 +1339,5 @@ namespace ABT_IR {
             irData = data & 0xff;
         }
         return irData;
-    }
-}
+        }
+  }
